@@ -4,7 +4,8 @@ const timer = 0;
 const stars = 5;
 
 
-initializeGame(){
+function reset(){
+  //sets 'start' button to 'reset'
   //creates card elements
   //assign location to cards randomly
   //starts timer
