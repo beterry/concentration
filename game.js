@@ -9,10 +9,8 @@ for (let i = 1; i<16; i++){
   createCard(i);
 }
 
-const firstCard = document.querySelector('.card');
-
 //listens for click event
-firstCard.addEventListener('click', flip);
+gridContainer.addEventListener('click', flip);
 
 function createCard(cardNumber){
   const newCard = document.createElement('div');
@@ -25,6 +23,7 @@ function createCard(cardNumber){
   newIcon.classList.add('icon');
   newCard.appendChild(newIcon);
   newCard.appendChild(newOverlay);
+
   gridContainer.appendChild(newCard);
 }
 
@@ -35,10 +34,18 @@ function reset(){
   //starts timer
 }
 
-function flip(){
-  console.log('clicked');
-  //reveals the hidden side of the cards by toggling class
-  firstCard.querySelector('.card-overlay').classList.toggle('flipped');
+function flip(card){
+  if (card.target.nodeName === 'DIV'){
+    if (card.target.classList.contains('card-overlay')){
+      console.log('face down card was clicked');
+      //reveals the hidden side of the cards by toggling class
+      card.target.classList.toggle('flipped');
+    } else{
+      console.log('face up card was clicked');
+      //turns the card back over
+      card.target.querySelector('.card-overlay').classList.toggle('flipped');
+    }
+  }
   //does not work on already flipped cards
   //if the flipCount equals 2 --> match() or noMatch()
   //if flip count equals 1 --> store id in variable
