@@ -2,34 +2,33 @@ const flipCount = 0;
 const moveCount = 0;
 const timer = 0;
 const stars = 5;
-
+let initArray = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
 const gridContainer = document.querySelector('#grid-container');
 
-for (let i = 1; i<16; i++){
-  createCard(i);
-}
-
-//listens for click event
-gridContainer.addEventListener('click', flip);
-
-function createCard(cardNumber){
-  const newCard = document.createElement('div');
-  const newOverlay = document.createElement('div');
-  const newIcon = document.createElement('img');
-  newCard.id = "card" + cardNumber;
-  newCard.classList.add('card', 'background-color');
-  newOverlay.classList.add('card-overlay', 'green-background');
-  newIcon.src= "img/logo.png";
-  newIcon.classList.add('icon');
-  newCard.appendChild(newIcon);
-  newCard.appendChild(newOverlay);
-
-  gridContainer.appendChild(newCard);
-}
-
 function reset(){
-  //sets 'start' button to 'reset'
+  //shuffles initial array to provide randomness
+  shuffleArray(initArray);
   //creates card elements
+  for (let i = 1; i<16; i++){
+    createCard(i, initArray[i]);
+  }
+  //para assign card number and random icon
+  function createCard(cardNumber, iconNumber){
+    const newCard = document.createElement('div');
+    const newOverlay = document.createElement('div');
+    const newIcon = document.createElement('img');
+    newCard.id = "card" + cardNumber;
+    newCard.classList.add('card', 'background-color');
+    newOverlay.classList.add('card-overlay', 'green-background');
+    newIcon.src= "img/dino"+iconNumber+".png";
+    newIcon.classList.add('icon');
+    newCard.appendChild(newIcon);
+    newCard.appendChild(newOverlay);
+    gridContainer.appendChild(newCard);
+  }
+  //listens for click event
+  gridContainer.addEventListener('click', flip);
+  //sets 'start' button to 'reset'
   //assign location to cards randomly
   //starts timer
 }
@@ -73,4 +72,13 @@ function decreaseStars(){
 function endGame(){
   //show winning message and game stats
   //ends timer
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
