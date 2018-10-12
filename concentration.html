@@ -15,29 +15,17 @@
 
   <body>
 
-    <main>
-      <h1 class="center">CONCENTRATION: MEMORY GAME</h1>
-      <h2 class="center">Click start to begin</h2>
-      <button id="start-button">START</button>
-      <section id="grid-container" class="container">
-        <div class="card">
-          <img class="icon" src="img/logo.png">
-          <div class="card-overlay"></div>
-        </div>
-        <div class="card">
-          <img class="icon" src="img/logo.png">
-          <div class="card-overlay"></div>
-        </div>
-        <div class="card">
-          <img class="icon" src="img/logo.png">
-          <div class="card-overlay"></div>
-        </div>
-        <div class="card">
-          <img class="icon" src="img/logo.png">
-          <div class="card-overlay"></div>
-        </div>
-      </section>
+    <main class="center">
+      <h1>CONCENTRATION: MEMORY GAME</h1>
+      <h3>Click start to begin</h3>
+      <button id="start-button" class="center green-background dark-blue" onclick="reset()">START</button>
+      <section id="grid-container" class="container"></section>
     </main>
 
   </body>
+  <script src="game.js"></script>
   </html>
+  <!-- <div id="card${cardNumber}" class="card background-color">
+    <img class="icon" src="img/logo.png">
+    <div class="card-overlay green-background"></div>
+    </div> -->
