@@ -238,23 +238,13 @@ a:active {
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
-/*MEDIA QUERIES*/
-@media screen and (max-width: 800px){
-
-  .flex{
-    justify-content: center;
-  }
-
-  .flex-item{
-    width: 100%;
-  }
-  .overlay{
-    font-size: 45px;
-  }
-	.hero{
-		background-image: url(../img/hero-sm.jpg);
-	}
+#stats{
+	font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+  font-size: 12px;
 }
+
+/*MEDIA QUERIES*/
 
 @media screen and (max-width: 400px){
   nav{

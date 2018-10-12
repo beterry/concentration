@@ -2,10 +2,16 @@ let flipCount = 0;
 let moveCount = 0;
 let matched = 0;
 let timer = 0;
-let stars = 5;
 let initArray = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
+
 const gridContainer = document.getElementById('grid-container');
 const startButton = document.getElementById('start-button');
+const statContainer = document.getElementById('stats');
+const movesStat = document.getElementById('moves');
+const timeStat = document.getElementById('time');
+const matchedStat = document.getElementById('matched');
+const starsStat = document.getElementById('stars');
+
 
 let flippedCard1;
 let flippedCard2;
@@ -13,32 +19,40 @@ let flippedCard2;
 startButton.textContent = "START";
 
 function reset(){
+  updateStats();
+  initStars(5);
   //shuffles initial array to provide randomness
   shuffleArray(initArray);
   //creates card elements
   for (let i = 1; i<=16; i++){
     createCard(i, initArray[i-1]);
-  }
-  //appends a card to the grid container
-  function createCard(cardNumber, iconNumber){
-    const newCard = document.createElement('div');
-    const newOverlay = document.createElement('div');
-    const newIcon = document.createElement('img');
-    newCard.id = "card" + cardNumber;
-    newCard.classList.add('card', 'background-color');
-    newOverlay.classList.add('card-overlay', 'green-background');
-    newIcon.src= "img/dino"+iconNumber+".png";
-    newIcon.classList.add('icon');
-    newCard.appendChild(newIcon);
-    newCard.appendChild(newOverlay);
-    gridContainer.appendChild(newCard);
-  }
-  //listens for click event
-  gridContainer.addEventListener('click', flip);
-  //sets 'start' button to 'reset'
-  startButton.textContent = "RESET";
-  //assign location to cards randomly
-  //starts timer
+}
+
+//appends a card to the grid container
+function createCard(cardNumber, iconNumber){
+  const newCard = document.createElement('div');
+  const newOverlay = document.createElement('div');
+  const newIcon = document.createElement('img');
+  newCard.id = "card" + cardNumber;
+  newCard.classList.add('card', 'background-color');
+  newOverlay.classList.add('card-overlay', 'green-background');
+  newIcon.src= "img/dino"+iconNumber+".png";
+  newIcon.classList.add('icon');
+  newCard.appendChild(newIcon);
+  newCard.appendChild(newOverlay);
+  gridContainer.appendChild(newCard);
+}
+//listens for click event
+gridContainer.addEventListener('click', flip);
+//sets 'start' button to 'reset'
+startButton.textContent = "RESET";
+//starts timer
+}
+
+function updateStats(){
+  movesStat.textContent = "MOVES: "+moveCount;
+  timeStat.textContent = "TIME: 1:00";
+  matchedStat.textContent = "MATCHED: "+matched;
 }
 
 function flip(card){
@@ -82,6 +96,7 @@ function match(){
     flipCount = 0;
     //increse moveCount
     moveCount++;
+    updateStats();
   }
 }
 
@@ -94,11 +109,23 @@ function noMatch(){
   moveCount++;
   //resets flipCount
   flipCount = 0;
-  decreaseStars();
+  updateStars();
+  updateStats();
 }
 
-function decreaseStars(){
+function initStars(num){
+  for (let i = 0; i < num; i++){
+    starsStat.insertAdjacentHTML('beforeend', '<img src="img/star.png">');
+    console.log('star was born')
+  }
+}
+
+function updateStars(){
   //decrease star by one
+  const star = starsStat.querySelector('img');
+  if (moveCount == 2 || moveCount == 18 || moveCount == 25 || moveCount == 36){
+    starsStat.removeChild(star);
+  }
 }
 
 function endGame(){
