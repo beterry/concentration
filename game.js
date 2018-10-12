@@ -3,7 +3,10 @@ const moveCount = 0;
 const timer = 0;
 const stars = 5;
 let initArray = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
-const gridContainer = document.querySelector('#grid-container');
+const gridContainer = document.getElementById('grid-container');
+const startButton = document.getElementById('start-button');
+
+startButton.textContent = "START";
 
 function reset(){
   //shuffles initial array to provide randomness
@@ -29,6 +32,7 @@ function reset(){
   //listens for click event
   gridContainer.addEventListener('click', flip);
   //sets 'start' button to 'reset'
+  startButton.textContent = "RESET";
   //assign location to cards randomly
   //starts timer
 }
