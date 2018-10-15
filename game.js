@@ -19,6 +19,18 @@ let flippedCard2;
 startButton.textContent = "START";
 
 function reset(){
+  flipCount = 0;
+  moveCount = 0;
+  matched = 0;
+  timer = 0;
+  flippedCard1 = null;
+  flippedCard2 = null;
+  while (starsStat.hasChildNodes()) {
+    const star = starsStat.querySelector('img');
+    starsStat.removeChild(star);
+    console.log('star was smothered');
+  }
+  deleteCards();
   updateStats();
   initStars(5);
   //shuffles initial array to provide randomness
@@ -49,10 +61,18 @@ startButton.textContent = "RESET";
 //starts timer
 }
 
+function deleteCards(){
+  while (gridContainer.hasChildNodes()) {
+    const firstCard = gridContainer.querySelector('.card');
+    gridContainer.removeChild(firstCard);
+  }
+}
+
 function updateStats(){
   movesStat.textContent = "MOVES: "+moveCount;
   timeStat.textContent = "TIME: 1:00";
   matchedStat.textContent = "MATCHED: "+matched;
+  console.log('stats were updated');
 }
 
 function flip(card){
@@ -115,7 +135,9 @@ function noMatch(){
 
 function initStars(num){
   for (let i = 0; i < num; i++){
-    starsStat.insertAdjacentHTML('beforeend', '<img src="img/star.png">');
+    const star = document.createElement('img');
+    star.src = "img/star.png";
+    starsStat.appendChild(star);
     console.log('star was born')
   }
 }
@@ -123,7 +145,7 @@ function initStars(num){
 function updateStars(){
   //decrease star by one
   const star = starsStat.querySelector('img');
-  if (moveCount == 2 || moveCount == 18 || moveCount == 25 || moveCount == 36){
+  if (moveCount == 12 || moveCount == 18 || moveCount == 25 || moveCount == 36){
     starsStat.removeChild(star);
   }
 }
