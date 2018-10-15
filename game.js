@@ -11,7 +11,9 @@ const movesStat = document.getElementById('moves');
 const timeStat = document.getElementById('time');
 const matchedStat = document.getElementById('matched');
 const starsStat = document.getElementById('stars');
-
+const endOverlay = document.getElementById('end-overlay');
+const endStats = document.getElementById('end-stats');
+const endList = document.getElementById('end-list');
 
 let flippedCard1;
 let flippedCard2;
@@ -32,12 +34,17 @@ function reset(){
   }
   deleteCards();
   updateStats();
-  initStars(5);
+  initStars(5,starsStat);
   //shuffles initial array to provide randomness
   shuffleArray(initArray);
   //creates card elements
   for (let i = 1; i<=16; i++){
     createCard(i, initArray[i-1]);
+  }
+  if (endOverlay.classList.contains('hidden') == false) {
+    endOverlay.classList.toggle('hidden');
+    endStats.classList.toggle('hidden');
+  }
 }
 
 //appends a card to the grid container
@@ -53,7 +60,6 @@ function createCard(cardNumber, iconNumber){
   newCard.appendChild(newIcon);
   newCard.appendChild(newOverlay);
   gridContainer.appendChild(newCard);
-}
 //listens for click event
 gridContainer.addEventListener('click', flip);
 //sets 'start' button to 'reset'
@@ -107,7 +113,7 @@ function match(){
   console.log('match');
   //increase matched variable
   matched++;
-  if (matched == 8){
+  if (matched == 1){
     endGame();
     return;
   }else{
@@ -133,11 +139,11 @@ function noMatch(){
   updateStats();
 }
 
-function initStars(num){
+function initStars(num,parent){
   for (let i = 0; i < num; i++){
     const star = document.createElement('img');
     star.src = "img/star.png";
-    starsStat.appendChild(star);
+    parent.appendChild(star);
     console.log('star was born')
   }
 }
@@ -151,7 +157,31 @@ function updateStars(){
 }
 
 function endGame(){
+  endOverlay.classList.toggle('hidden');
+  endStats.classList.toggle('hidden');
+  const endStars = document.createElement('li');
+  endStars.classList.add('flex');
+  if (moveCount<12){
+      initStars(5,endStars);
+  }
+  if (moveCount>12 && moveCount<=18){
+      initStars(4,endStars);
+  }
+  if (moveCount>18 && moveCount<=25){
+      initStars(3,endStars);
+  }
+  if (moveCount>25 && moveCount<=36){
+      initStars(2,endStars);
+  }
+  if (moveCount>36){
+      initStars(1,endStars);
+  }
+  const endMoves = document.createElement('li');
+  endMoves.textContent = "MOVES: "+moveCount;
+  const endTime = document.createElement('li');
   console.log('yah fucking won!!');
+  endList.appendChild(endMoves);
+  endList.appendChild(endStars);
   //show winning message and game stats
   //ends timer
 }
