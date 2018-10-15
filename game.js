@@ -1,7 +1,9 @@
 let flipCount = 0;
 let moveCount = 0;
 let matched = 0;
-let timer = 0;
+let time;
+let minute = 0;
+let sec = 00;
 let initArray = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
 
 const gridContainer = document.getElementById('grid-container');
@@ -24,7 +26,8 @@ function reset(){
   flipCount = 0;
   moveCount = 0;
   matched = 0;
-  timer = 0;
+  minute = 0;
+  sec = 00;
   flippedCard1 = null;
   flippedCard2 = null;
   while (starsStat.hasChildNodes()) {
@@ -45,6 +48,7 @@ function reset(){
     endOverlay.classList.toggle('hidden');
     endStats.classList.toggle('hidden');
   }
+  startTimer();
 }
 
 //appends a card to the grid container
@@ -74,9 +78,26 @@ function deleteCards(){
   }
 }
 
+function startTimer(){
+  timeStat.textContent = "TIME: "+minute+":0"+sec;
+  time = setInterval(timer,1000);
+}
+
+function timer(){
+  if (sec < 9){
+    timeStat.textContent = "TIME: "+minute+":0"+sec;
+  }else{
+    timeStat.textContent = "TIME: "+minute+":"+sec;
+  }
+  sec++;
+  if (sec == 60){
+    minute++
+    sec = 00;
+  }
+}
+
 function updateStats(){
   movesStat.textContent = "MOVES: "+moveCount;
-  timeStat.textContent = "TIME: 1:00";
   matchedStat.textContent = "MATCHED: "+matched;
   console.log('stats were updated');
 }
@@ -113,7 +134,7 @@ function match(){
   console.log('match');
   //increase matched variable
   matched++;
-  if (matched == 1){
+  if (matched == 8){
     endGame();
     return;
   }else{
@@ -142,6 +163,7 @@ function noMatch(){
 function initStars(num,parent){
   for (let i = 0; i < num; i++){
     const star = document.createElement('img');
+    star.classList.add('inline');
     star.src = "img/star.png";
     parent.appendChild(star);
     console.log('star was born')
@@ -157,10 +179,12 @@ function updateStars(){
 }
 
 function endGame(){
+  clearInterval(time);
+  //Reveal overlay and final stats
   endOverlay.classList.toggle('hidden');
   endStats.classList.toggle('hidden');
+  //create final stats
   const endStars = document.createElement('li');
-  endStars.classList.add('flex');
   if (moveCount<12){
       initStars(5,endStars);
   }
@@ -179,13 +203,20 @@ function endGame(){
   const endMoves = document.createElement('li');
   endMoves.textContent = "MOVES: "+moveCount;
   const endTime = document.createElement('li');
+  if (sec < 9){
+    endTime.textContent = "TIME: "+minute+":0"+sec;
+  }else{
+    endTime.textContent = "TIME: "+minute+":"+sec;
+  }
   console.log('yah fucking won!!');
-  endList.appendChild(endMoves);
   endList.appendChild(endStars);
+  endList.appendChild(endMoves);
+  endList.appendChild(endTime);
   //show winning message and game stats
   //ends timer
 }
 
+//Shuffle initArray to provide random distribution
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
