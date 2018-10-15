@@ -6,7 +6,7 @@ let initArray = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
 
 const gridContainer = document.getElementById('grid-container');
 const startButton = document.getElementById('start-button');
-const statContainer = document.getElementById('stats');
+// const statContainer = document.getElementById('stats');
 const movesStat = document.getElementById('moves');
 const timeStat = document.getElementById('time');
 const matchedStat = document.getElementById('matched');
