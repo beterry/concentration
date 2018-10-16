@@ -28,6 +28,7 @@ function reset(){
   sec = 00;
   flippedCard1 = null;
   flippedCard2 = null;
+  clearInterval(time);
   //when start is clicked, reveal gameboard
   if (gameBoard.classList.contains('hidden')){
     gameBoard.classList.toggle('hidden');
@@ -103,11 +104,14 @@ function updateStats(){
 }
 
 function flip(card){
+  //makes sure the user is not rapidly clicking
+  if (flipCount == 2){
+    return;
+  }
   //makes sure user is clicking on a card
   if (card.target.nodeName === 'DIV'){
     //does not work on already flipped cards
     if (card.target.classList.contains('card-overlay')){
-      console.log('face down card was clicked');
       //reveals the hidden side of the cards by toggling class
       card.target.classList.toggle('flipped');
       //store id in variable
@@ -118,10 +122,14 @@ function flip(card){
       }
       //if a card was already flipped, check if the icons match
       if (flipCount == 1){
+        //flipCount is increased to 2 so the listener is locked for a second
+        flipCount++;
         flippedCard2=card.target.parentElement;
+        //compares the icons
         if (flippedCard1.querySelector('img').src == flippedCard2.querySelector('img').src){
           match();
         }else{
+          //waits half a second to flip the cards back over
           setTimeout(noMatch,500);
         }
       }
@@ -130,10 +138,10 @@ function flip(card){
 }
 
 function match(){
-  //if matched equals 8 end the game
   console.log('match');
   //increase matched variable
   matched++;
+  //if matched equals 8 end the game
   if (matched == 8){
     endGame();
     return;
@@ -144,11 +152,11 @@ function match(){
     flippedCard2.classList.toggle('green-background');
     flippedCard1.classList.toggle('white-background');
     flippedCard2.classList.toggle('white-background');
-    //resets flipCount
-    flipCount = 0;
     //increse moveCount
     moveCount++;
     updateStats();
+    //resets flipCount so more cards can flip
+    flipCount = 0;
   }
 }
 
@@ -159,10 +167,10 @@ function noMatch(){
   flippedCard2.querySelector('.card-overlay').classList.toggle('flipped');
   //increses moveCount
   moveCount++;
-  //resets flipCount
-  flipCount = 0;
   updateStars();
   updateStats();
+  //resets flipCount so more cards can flip
+  flipCount = 0;
 }
 
 //creates a specified number of stars and appends them to a specifies parent

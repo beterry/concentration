@@ -255,6 +255,7 @@ button{
 	padding: 10px;
 	font-family: 'Roboto Condensed', sans-serif;
 	border-radius: 2px;
+	font-weight: bold;
 }
 
 #stats{
@@ -273,7 +274,8 @@ button{
 	height: 5%;
 	font-family: 'Lato', serif;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 16px;
+	color: #CFFF94;
 }
 
 #end-list{
