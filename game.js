@@ -6,9 +6,9 @@ let minute = 0;
 let sec = 00;
 let initArray = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8];
 
+const gameBoard = document.getElementById('game-board');
+const intro = document.getElementById('intro');
 const gridContainer = document.getElementById('grid-container');
-const startButton = document.getElementById('start-button');
-// const statContainer = document.getElementById('stats');
 const movesStat = document.getElementById('moves');
 const timeStat = document.getElementById('time');
 const matchedStat = document.getElementById('matched');
@@ -20,8 +20,6 @@ const endList = document.getElementById('end-list');
 let flippedCard1;
 let flippedCard2;
 
-startButton.textContent = "START";
-
 function reset(){
   flipCount = 0;
   moveCount = 0;
@@ -30,6 +28,10 @@ function reset(){
   sec = 00;
   flippedCard1 = null;
   flippedCard2 = null;
+  //when start is clicked, reveal gameboard
+  if (gameBoard.classList.contains('hidden')){
+    gameBoard.classList.toggle('hidden');
+  }
   while (starsStat.hasChildNodes()) {
     const star = starsStat.querySelector('img');
     starsStat.removeChild(star);
@@ -48,6 +50,7 @@ function reset(){
     endOverlay.classList.toggle('hidden');
     endStats.classList.toggle('hidden');
   }
+  //starts timer
   startTimer();
 }
 
@@ -57,8 +60,8 @@ function createCard(cardNumber, iconNumber){
   const newOverlay = document.createElement('div');
   const newIcon = document.createElement('img');
   newCard.id = "card" + cardNumber;
-  newCard.classList.add('card', 'background-color');
-  newOverlay.classList.add('card-overlay', 'green-background');
+  newCard.classList.add('card', 'white-background');
+  newOverlay.classList.add('card-overlay', 'gradient-background');
   newIcon.src= "img/dino"+iconNumber+".png";
   newIcon.classList.add('icon');
   newCard.appendChild(newIcon);
@@ -66,9 +69,6 @@ function createCard(cardNumber, iconNumber){
   gridContainer.appendChild(newCard);
 //listens for click event
 gridContainer.addEventListener('click', flip);
-//sets 'start' button to 'reset'
-startButton.textContent = "RESET";
-//starts timer
 }
 
 function deleteCards(){
