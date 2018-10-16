@@ -28,7 +28,7 @@ h2{
 
 h3{
   font-family: 'Lato', sans-serif;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 h4{
@@ -104,7 +104,14 @@ p{
 
 /*LAYOUT STYLES*/
 main{
-
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	bottom: 20px;
+	left: 20px;
+	border-radius: 4px;
+	padding: 20px;
+	background-image: url("../img/background.jpg");
 }
 
 #logo img{
@@ -286,14 +293,9 @@ button{
 }
 
 #game-board{
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	bottom: 20px;
-	left: 20px;
-	border-radius: 4px;
-	padding: 20px;
-	background-image: url("../img/background.jpg");
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 #end-overlay{
@@ -306,7 +308,7 @@ button{
 }
 
 #end-stats{
-	padding: 50px;
+	padding: 40px;
 	text-align: center;
 	background-color: white;
 }
@@ -326,5 +328,8 @@ button{
 	}
 	.icon{
 		width: 70%;
+	}
+	h1{
+		font-size: 35px;
 	}
 }
