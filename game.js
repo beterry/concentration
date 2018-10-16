@@ -32,6 +32,7 @@ function reset(){
   //when start is clicked, reveal gameboard
   if (gameBoard.classList.contains('hidden')){
     gameBoard.classList.toggle('hidden');
+    intro.classList.add('hidden');
   }
   while (starsStat.hasChildNodes()) {
     const star = starsStat.querySelector('img');

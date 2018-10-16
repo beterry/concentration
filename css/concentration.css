@@ -158,7 +158,6 @@ footer{
 
 .flex{
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-around;
 }
 
@@ -314,14 +313,18 @@ button{
 
 /*MEDIA QUERIES*/
 
-@media screen and (max-width: 400px){
-  nav{
-    flex-direction: column;
-  }
-  #name{
-    text-align: center;
-  }
-  #logo img{
-    margin: 0px;
-  }
+@media screen and (max-width: 600px){
+  #stats{
+		flex-direction: column;
+		height: 30%;
+	}
+	#instructions{
+		height: 10%;
+	}
+	#grid-container{
+		height: 60%;
+	}
+	.icon{
+		width: 70%;
+	}
 }
