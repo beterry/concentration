@@ -139,6 +139,11 @@ function match(){
     return;
   }else{
     //the cards stay turned over (dont toggle class again)
+    //background is turned green
+    flippedCard1.classList.toggle('green-background');
+    flippedCard2.classList.toggle('green-background');
+    flippedCard1.classList.toggle('white-background');
+    flippedCard2.classList.toggle('white-background');
     //resets flipCount
     flipCount = 0;
     //increse moveCount
@@ -160,6 +165,7 @@ function noMatch(){
   updateStats();
 }
 
+//creates a specified number of stars and appends them to a specifies parent
 function initStars(num,parent){
   for (let i = 0; i < num; i++){
     const star = document.createElement('img');
@@ -170,6 +176,7 @@ function initStars(num,parent){
   }
 }
 
+//checks to see if stars need to be decreased
 function updateStars(){
   //decrease star by one
   const star = starsStat.querySelector('img');
