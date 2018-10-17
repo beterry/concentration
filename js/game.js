@@ -34,20 +34,21 @@ function reset(){
     gameBoard.classList.toggle('hidden');
     intro.classList.add('hidden');
   }
+  //if the game is being reset, clear existing stars
   while (starsStat.hasChildNodes()) {
     const star = starsStat.querySelector('img');
     starsStat.removeChild(star);
-    console.log('star was smothered');
   }
   deleteCards();
   updateStats();
   initStars(5,starsStat);
   //shuffles initial array to provide randomness
   shuffleArray(initArray);
-  //creates card elements
+  //creates 16 card elements
   for (let i = 1; i<=16; i++){
     createCard(i, initArray[i-1]);
   }
+  //if 'PLAY AGIAN' button is hit, hide the end screen
   if (endOverlay.classList.contains('hidden') == false) {
     endOverlay.classList.toggle('hidden');
     endStats.classList.toggle('hidden');
@@ -69,8 +70,8 @@ function createCard(cardNumber, iconNumber){
   newCard.appendChild(newIcon);
   newCard.appendChild(newOverlay);
   gridContainer.appendChild(newCard);
-//listens for click event
-gridContainer.addEventListener('click', flip);
+  //listens for click event
+  gridContainer.addEventListener('click', flip);
 }
 
 function deleteCards(){
@@ -101,7 +102,6 @@ function timer(){
 function updateStats(){
   movesStat.textContent = "MOVES: "+moveCount;
   matchedStat.textContent = "MATCHED: "+matched;
-  console.log('stats were updated');
 }
 
 function flip(card){
@@ -139,10 +139,9 @@ function flip(card){
 }
 
 function match(){
-  console.log('match');
   //increase matched variable
   matched++;
-  //if matched equals 8 end the game
+  //if matched equals 8, end the game
   if (matched == 8){
     endGame();
     return;
@@ -162,7 +161,6 @@ function match(){
 }
 
 function noMatch(){
-  console.log('no match');
   //the cards flip back over (toggle class again)
   flippedCard1.querySelector('.card-overlay').classList.toggle('flipped');
   flippedCard2.querySelector('.card-overlay').classList.toggle('flipped');
@@ -181,7 +179,6 @@ function initStars(num,parent){
     star.classList.add('inline');
     star.src = "img/star.png";
     parent.appendChild(star);
-    console.log('star was born')
   }
 }
 
@@ -195,11 +192,12 @@ function updateStars(){
 }
 
 function endGame(){
+  //end timer
   clearInterval(time);
   //Reveal overlay and final stats
   endOverlay.classList.toggle('hidden');
   endStats.classList.toggle('hidden');
-  //create final stats
+  //create final stars
   const endStars = document.createElement('li');
   if (moveCount<12){
       initStars(5,endStars);
@@ -224,12 +222,9 @@ function endGame(){
   }else{
     endTime.textContent = "TIME: "+minute+":"+sec;
   }
-  console.log('yah fucking won!!');
   endList.appendChild(endStars);
   endList.appendChild(endMoves);
   endList.appendChild(endTime);
-  //show winning message and game stats
-  //ends timer
 }
 
 //Shuffle initArray to provide random distribution
